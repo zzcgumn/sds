@@ -332,11 +332,11 @@ alias(
 # both -- and every caller wants both, since this package's __init__ imports
 # dds3 before its own extension to get SolverContext registered first.
 py_wheel(
-    name = "rbe_wheel",
-    distribution = "rbe",
+    name = "sds_wheel",
+    distribution = "sds",
     version = "0.1.0",
     summary = "Replenished belief evaluation for bridge declarer play, with the dds double dummy solver",
-    homepage = "https://github.com/zzcgumn/rbe",
+    homepage = "https://github.com/zzcgumn/sds",
     license = "Apache-2.0",
     python_requires = ">=3.10",
     # NOTE: this is tagged py3-none-any while shipping two compiled
@@ -366,11 +366,11 @@ py_test(
     size = "small",
     main = "tests/test_wheel_contents.py",
     srcs = ["tests/test_wheel_contents.py"],
-    data = [":rbe_wheel"],
+    data = [":sds_wheel"],
 )
 
 py_wheel_dist(
-    name = "rbe_wheel_dist",
+    name = "sds_wheel_dist",
     out = "dist",
-    wheel = ":rbe_wheel",
+    wheel = ":sds_wheel",
 )

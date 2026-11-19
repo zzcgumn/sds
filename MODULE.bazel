@@ -1,5 +1,5 @@
 module(
-    name = "rbe",
+    name = "sds",
     version = "0.1.0",
 )
 
