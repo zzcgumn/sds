@@ -28,7 +28,7 @@ What is worth pinning there is the *ordering* it participates in
 (test_neither_declarer_dominates_the_other), and that is asserted separately.
 
 The minimax and playout that settled the golden values are deliberately not
-committed; see rbe-notes. Their absence is why those rows say golden.
+committed; see sds-notes. Their absence is why those rows say golden.
 """
 
 import io
