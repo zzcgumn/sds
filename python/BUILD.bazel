@@ -335,7 +335,7 @@ py_wheel(
     name = "sds_wheel",
     distribution = "sds",
     version = "0.1.0",
-    summary = "Replenished belief evaluation for bridge declarer play, with the dds double dummy solver",
+    summary = "Single dummy solvers for bridge declarer play, built on the dds double dummy solver",
     homepage = "https://github.com/zzcgumn/sds",
     license = "Apache-2.0",
     python_requires = ">=3.10",

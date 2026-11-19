@@ -1,12 +1,15 @@
-# RBE (Replenished Belief Evaluation) Repository Instructions
+# SDS (Single Dummy Solvers) Repository Instructions
 
 ## Project Overview
 
-**rbe** implements belief-space local evaluation for bridge declarer play: given
-a belief over the opponents' possible hands, it evaluates declarer's options by
-walking a belief tree, replenishing the sampled belief set as the tree narrows.
-It is built on the [dds](https://github.com/dds-bridge/dds) double dummy solver,
-which it consumes as a Bazel module dependency.
+**sds** is a collection of single dummy solvers for bridge declarer play. It is
+built on the [dds](https://github.com/dds-bridge/dds) double dummy solver, which
+it consumes as a Bazel module dependency.
+
+The first solver, and today the only one, is replenished belief evaluation
+(RBE). It implements belief-space local evaluation: given a belief over the
+opponents' possible hands, it evaluates declarer's options by walking a belief
+tree, replenishing the sampled belief set as the tree narrows.
 
 - The caller's guide is `docs/belief_space_local_evaluation.md`
 - The module map and the conventions common to every header are `docs/module_map.md`
@@ -52,7 +55,7 @@ bazelisk build --config=opt //src/belief_evaluation
 bazelisk test --config=opt //tests/belief_evaluation/...
 
 # The wheel
-bazelisk build //python:rbe_wheel_dist
+bazelisk build //python:sds_wheel_dist
 ```
 
 ### Build time expectations
