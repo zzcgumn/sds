@@ -32,8 +32,8 @@ The measurements behind the defaults are
 ## Installing
 
 ```
-bazelisk build //python:sds_wheel_dist   # writes dist/sds-<version>-*.whl
-pip install dist/sds-0.1.0-py3-none-any.whl
+bazelisk build //python:sds_wheel_dist   # writes bazel-bin/python/dist/sds-<version>-*.whl
+pip install bazel-bin/python/dist/sds-0.1.0-py3-none-any.whl
 ```
 
 One wheel, two top-level imports: `belief_space_local_evaluation` and
