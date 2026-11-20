@@ -311,11 +311,11 @@ alias(
 # Both extensions link the same static solver, so two wheels would duplicate
 # it. Every caller needs both anyway, because __init__.py imports dds3.
 py_wheel(
-    name = "rbe_wheel",
-    distribution = "rbe",
+    name = "sds_wheel",
+    distribution = "sds",
     version = "0.1.0",
     summary = "Replenished belief evaluation for bridge declarer play, with the dds double dummy solver",
-    homepage = "https://github.com/zzcgumn/rbe",
+    homepage = "https://github.com/zzcgumn/sds",
     license = "Apache-2.0",
     python_requires = ">=3.10",
     # NOTE: tagged py3-none-any, although it ships compiled extensions. So
@@ -341,11 +341,11 @@ py_test(
     size = "small",
     main = "tests/test_wheel_contents.py",
     srcs = ["tests/test_wheel_contents.py"],
-    data = [":rbe_wheel"],
+    data = [":sds_wheel"],
 )
 
 py_wheel_dist(
-    name = "rbe_wheel_dist",
+    name = "sds_wheel_dist",
     out = "dist",
-    wheel = ":rbe_wheel",
+    wheel = ":sds_wheel",
 )
