@@ -1,6 +1,6 @@
 # Tripwire, not a home.
 #
-# Working notes for this repository live in ../rbe-notes, a PRIVATE sibling
+# Working notes for this repository live in ../sds-notes, a PRIVATE sibling
 # repository. Nothing should be written here on purpose -- see CLAUDE.md.
 #
 # This directory survives only so that a tool which still writes to the old
@@ -10,6 +10,6 @@
 #
 # So: everything here is ignored, and this file is tracked so the rule arrives
 # with a fresh clone. Do not add an exception below -- move the file to
-# ../rbe-notes instead, or to docs/ if it is meant to be read by others.
+# ../sds-notes instead, or to docs/ if it is meant to be read by others.
 *
 !.gitignore

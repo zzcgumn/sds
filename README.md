@@ -1,4 +1,4 @@
-# rbe — replenished belief evaluation
+# sds — single dummy solvers
 
 A belief-space local evaluator for bridge declarer play, built on the
 [dds](https://github.com/dds-bridge/dds) double dummy solver.
@@ -28,8 +28,8 @@ The measurements behind the defaults are
 ## Installing
 
 ```
-bazelisk build //python:rbe_wheel_dist   # writes dist/rbe-<version>-*.whl
-pip install dist/rbe-0.1.0-py3-none-any.whl
+bazelisk build //python:sds_wheel_dist   # writes dist/sds-<version>-*.whl
+pip install dist/sds-0.1.0-py3-none-any.whl
 ```
 
 One wheel, two top-level imports: `belief_space_local_evaluation` and

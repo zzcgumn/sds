@@ -12,13 +12,13 @@ the rule that the spec is read before behaviour changes.
 
 ## The remote is public
 
-`github.com/zzcgumn/rbe` is a **public** repository. Anything committed here is
+`github.com/zzcgumn/sds` is a **public** repository. Anything committed here is
 published, and a push cannot be taken back.
 
-## Working notes live in `../rbe-notes`, a private sibling
+## Working notes live in `../sds-notes`, a private sibling
 
 Plans, analyses, reviews, task breakdowns and scratch files go to
-`../rbe-notes`, a private sibling checkout, never into this tree. Its layout is
+`../sds-notes`, a private sibling checkout, never into this tree. Its layout is
 documented there; nothing in this repository points at a file inside it, for
 the reason given below.
 
@@ -33,7 +33,7 @@ A sibling repository rather than an ignored directory here, for two reasons:
 `claude/` survives only as a tripwire: `claude/.gitignore` keeps anything
 written there uncommittable, so a tool that still writes to the old location
 cannot leak into a public push. Nothing should be put there on purpose — and do
-not reference a path under it, or under `../rbe-notes`, from a committed file.
+not reference a path under it, or under `../sds-notes`, from a committed file.
 The reference would dangle for everyone else.
 
 Not to be confused with `.claude/` (leading dot), which is Claude Code's own
@@ -45,7 +45,7 @@ settings directory and is ignored separately by the root `.gitignore`.
 coding agent — human or machine — needs in order to change behaviour correctly,
 so it belongs with the code it constrains. Notes record *how the library came to
 be*; specs and docs state *what it must do* and *how to use it*. If a document
-is useful for using or changing rbe, it belongs in this repository.
+is useful for using or changing sds, it belongs in this repository.
 
 ## Building
 
