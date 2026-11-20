@@ -35,6 +35,14 @@ jobs:
           disk-cache: true
           repository-cache: true
 
+      # The prebuilt LLVM 21.1.8 toolchain's ld.lld is dynamically linked
+      # against libxml2.so.2. ubuntu-latest's default image does not have
+      # libxml2 installed, so the linker fails with "error while loading
+      # shared libraries" on every build -- not something the free-disk-space
+      # step above removes, since large-packages is already off.
+      - name: Install libxml2 (required by the LLVM toolchain's ld.lld)
+        run: sudo apt-get update && sudo apt-get install -y libxml2
+
       - name: Build
         run: bazelisk build --verbose_failures //...
 
