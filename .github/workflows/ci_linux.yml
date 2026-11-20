@@ -10,7 +10,16 @@ on:
 
 jobs:
   build_and_test:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: that label moved to "resolute" (26.04) and
+    # broke this build two ways at once -- libxml2 dropped the .so.2 soname
+    # the pinned LLVM 21.1.8 toolchain's ld.lld links against, and its newer
+    # glibc's default _POSIX_C_SOURCE/_XOPEN_SOURCE collide with CPython
+    # 3.14's pyconfig.h under -Werror. Both are upstream compatibility gaps
+    # in dependencies this tree doesn't control (toolchains_llvm's LLVM
+    # build, dds's python/converters.cpp), not bugs in this tree, so the fix
+    # here is to stop floating onto whatever Ubuntu release GitHub renames
+    # "latest" to next, rather than chase each incompatibility as it lands.
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
       - name: Checkout repository
@@ -34,27 +43,6 @@ jobs:
           bazelisk-cache: true
           disk-cache: true
           repository-cache: true
-
-      # The prebuilt LLVM 21.1.8 toolchain's ld.lld is dynamically linked
-      # against libxml2.so.2, an ABI ubuntu-latest's current release no
-      # longer ships under that name or soname (it is now libxml2-16,
-      # providing libxml2.so.16) -- so there is no package left that
-      # satisfies the old name, and a plain `apt-get install libxml2` 404s.
-      # ld.lld only touches a tiny, stable slice of libxml2's API, so a
-      # compat symlink to whatever libxml2.so.* the distro does ship is
-      # enough to satisfy the dynamic loader.
-      - name: Install libxml2 (required by the LLVM toolchain's ld.lld)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libxml2-16 || sudo apt-get install -y libxml2t64 || sudo apt-get install -y libxml2
-          LIBXML2_PATH="$(ldconfig -p | grep -m1 'libxml2\.so' | awk '{print $NF}')"
-          echo "Found: $LIBXML2_PATH"
-          test -n "$LIBXML2_PATH"
-          LIBXML2_DIR="$(dirname "$LIBXML2_PATH")"
-          if [ ! -e "$LIBXML2_DIR/libxml2.so.2" ]; then
-            sudo ln -s "$LIBXML2_PATH" "$LIBXML2_DIR/libxml2.so.2"
-            sudo ldconfig
-          fi
 
       - name: Build
         run: bazelisk build --verbose_failures //...
