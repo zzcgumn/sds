@@ -36,12 +36,25 @@ jobs:
           repository-cache: true
 
       # The prebuilt LLVM 21.1.8 toolchain's ld.lld is dynamically linked
-      # against libxml2.so.2. ubuntu-latest's default image does not have
-      # libxml2 installed, so the linker fails with "error while loading
-      # shared libraries" on every build -- not something the free-disk-space
-      # step above removes, since large-packages is already off.
+      # against libxml2.so.2, an ABI ubuntu-latest's current release no
+      # longer ships under that name or soname (it is now libxml2-16,
+      # providing libxml2.so.16) -- so there is no package left that
+      # satisfies the old name, and a plain `apt-get install libxml2` 404s.
+      # ld.lld only touches a tiny, stable slice of libxml2's API, so a
+      # compat symlink to whatever libxml2.so.* the distro does ship is
+      # enough to satisfy the dynamic loader.
       - name: Install libxml2 (required by the LLVM toolchain's ld.lld)
-        run: sudo apt-get update && sudo apt-get install -y libxml2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-16 || sudo apt-get install -y libxml2t64 || sudo apt-get install -y libxml2
+          LIBXML2_PATH="$(ldconfig -p | grep -m1 'libxml2\.so' | awk '{print $NF}')"
+          echo "Found: $LIBXML2_PATH"
+          test -n "$LIBXML2_PATH"
+          LIBXML2_DIR="$(dirname "$LIBXML2_PATH")"
+          if [ ! -e "$LIBXML2_DIR/libxml2.so.2" ]; then
+            sudo ln -s "$LIBXML2_PATH" "$LIBXML2_DIR/libxml2.so.2"
+            sudo ldconfig
+          fi
 
       - name: Build
         run: bazelisk build --verbose_failures //...
