@@ -2,7 +2,7 @@
 # so committing them makes the tree unusable on any other machine.
 bazel-*
 
-# Wheel output (//python:rbe_wheel_dist).
+# Wheel output (//python:sds_wheel_dist).
 dist/
 
 # Python
