@@ -1,4 +1,4 @@
-# Bazel configuration for the replenished belief evaluation repository.
+# Bazel configuration for the sds repository.
 #
 # Trimmed from dds's .bazelrc: .bazelrc is never inherited across
 # repositories, so anything this tree needs has to be restated here. The
